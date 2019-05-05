@@ -40,10 +40,7 @@ class Inventory extends Component {
         let items;
         if (this.state.loaded) {
             items = this.state.items.map((item, index) => (
-                <div>
-                    <span>{item.name}</span>
-                    <span>{item.quantity}</span>
-                </div>
+                <Item key={'item-'+index} name={item.name} quantity={item.quantity} />
             ));
         } else {
             items = <h6>Loading...</h6>;
@@ -52,10 +49,38 @@ class Inventory extends Component {
         return (
             <div>
                 <h4>Inventory</h4>
-                {items}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Quantity</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {items}
+                    </tbody>
+                </table>
             </div>
         );
+    }
+}
+
+class Item extends Component {
         
+
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <tr>
+                <td>{this.props.name}</td>
+                <td>{this.props.quantity}</td>
+                <td></td>
+            </tr>
+        );
     }
 }
 

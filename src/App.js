@@ -14,13 +14,36 @@ function App() {
 class Inventory extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            items: [],
+            loaded: false,
+        };
     }
 
     componentDidMount() {
     }
 
     render() {
-        return <h4>Inventory</h4>;
+        let items;
+        if (this.state.loaded) {
+            items = this.state.items.map((item, index) => (
+                <div>
+                    <span>{item.name}</span>
+                    <span>{item.quantity}</span>
+                </div>
+            ));
+        } else {
+            items = <h6>Loading...</h6>;
+        }
+
+        return (
+            <div>
+                <h4>Inventory</h4>
+                {items}
+            </div>
+        );
+        
     }
 }
 

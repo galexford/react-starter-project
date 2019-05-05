@@ -71,16 +71,49 @@ class Item extends Component {
 
     constructor(props) {
         super(props);
+        this.state={
+            editing: false,
+            name: props.name,
+            quantity: props.quantity,
+            editName: props.name, 
+            editQuantity: props.quantity,
+        }
+    }
+
+    edit = () => {
+        this.setState({
+            name: this.state.editName,
+            quantity: this.state.editQuantity,
+            editing: false,
+        });
     }
 
     render() {
-        return (
-            <tr>
-                <td>{this.props.name}</td>
-                <td>{this.props.quantity}</td>
-                <td></td>
-            </tr>
-        );
+        if (!this.state.editing) {
+            return (
+                <tr>
+                    <td>{this.state.name}</td>
+                    <td>{this.state.quantity}</td>
+                    <td>
+                        <button class="btn btn-primary" onClick={() => this.setState({editing:true})}>Edit</button>
+                    </td>
+                </tr>
+            );
+        } else {
+            return (
+                <tr>
+                    <td>
+                        <input className="form-control" type="text" placeholder="Edit Name" value={this.state.editName} onChange={(e) => this.setState({editName: e.target.value})} />
+                    </td>
+                    <td>
+                        <input className="form-control" type="number" placeholder="Edit Quantity" value={this.state.editQuantity} onChange={(e) => this.setState({editQuantity: e.target.value})} />
+                    </td>
+                    <td>
+                        <button class="btn btn-warning" onClick={this.edit}>Save</button>
+                    </td>
+                </tr>
+            );
+        }
     }
 }
 

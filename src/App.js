@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import $ from 'jquery';
+
+const api_url = 'https://84b8e049-8c1c-4a98-b01b-28f12198c2da.mock.pstmn.io/';
 
 function App() {
     return (
@@ -22,6 +25,15 @@ class Inventory extends Component {
     }
 
     componentDidMount() {
+        $.ajax({
+            url: api_url+'/inventory', 
+            type: "GET",
+        }).done((data) => {
+            this.setState({
+                items: data,
+                loaded: true,
+            });
+        });
     }
 
     render() {
